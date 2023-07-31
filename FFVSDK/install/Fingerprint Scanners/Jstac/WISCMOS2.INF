@@ -1,0 +1,74 @@
+; Installation inf for the WISCMOS2
+;
+
+[Version]
+Signature="$CHICAGO$"
+Class=USB
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+;ClassGUID={6bdd1fc6-810f-11d0-bec7-08002be2092f}
+provider=%WISON%
+DriverVer=03/15/2004,0.1.0.1
+
+[SourceDisksNames]
+1="USB Fingerprint Installation Disk",,,
+
+[SourceDisksFiles]
+WISCMOS2.sys = 1
+WISCMOS2.inf = 1
+
+[Manufacturer]
+%MfgName%=WISON
+
+[WISON]
+%USB\VID_093A&PID_247E.DeviceDesc%=WISCMOS2.Dev, USB\VID_093A&PID_247E
+
+;[PreCopySection]
+;HKR,,NoSetupUI,,1
+
+[DestinationDirs]
+WISCMOS2.Files.Ext = 10,System32\Drivers
+WISCMOS2.Files.Inf = 10,INF
+
+[WISCMOS2.Dev]
+CopyFiles=WISCMOS2.Files.Ext, WISCMOS2.Files.Inf
+AddReg=WISCMOS2.AddReg
+
+[WISCMOS2.Dev.NT]
+CopyFiles=WISCMOS2.Files.Ext, WISCMOS2.Files.Inf
+AddReg=WISCMOS2.AddReg
+
+[WISCMOS2.Dev.NT.Services]
+Addservice = WISCMOS2, 0x00000002, WISCMOS2.AddService
+
+[WISCMOS2.AddService]
+DisplayName    = %WISCMOS2.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\WISCMOS2.sys
+LoadOrderGroup = SERVICE_DEMAND_START	;Base
+
+[WISCMOS2.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,WISCMOS2.sys
+HKLM,"System\Currentcontrolset\Services\WISCMOS2\Parameters","MaximumTransferSize",0x10001,49152
+HKLM,"System\Currentcontrolset\Services\WISCMOS2\Parameters","DebugLevel",0x10001,2
+HKLM,"System\Currentcontrolset\Services\WISCMOS2\Parameters","AlternateSetting",0x10001,6
+HKLM,"System\Currentcontrolset\Services\WISCMOS2\Parameters","IsoFlag",0x10001,0
+
+
+[WISCMOS2.Files.Ext]
+WISCMOS2.sys
+
+[WISCMOS2.Files.Inf]
+WISCMOS2.Inf
+
+
+;---------------------------------------------------------------;
+
+[Strings]
+WISON="Wison"
+MfgName="Wison"
+USB\VID_093A&PID_247E.DeviceDesc="TypeII Optical Fingerprint Device"
+WISCMOS2.SvcDesc="Type II Driver for (Windows 98/ME/2000/XP)"
+

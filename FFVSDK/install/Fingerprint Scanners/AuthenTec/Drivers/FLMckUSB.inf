@@ -1,0 +1,90 @@
+[Version]
+Signature="$CHICAGO$"
+Class=USB
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+provider=%Authentec%
+DriverVer=10/22/2001,5.0.2004.0
+CatalogFile = flmckusb.cat 
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%Authentec%=Authentec
+
+[Authentec]
+;
+; These are the VID/PIDs for the Yukon Fingerloc boards.
+;
+%YukonBoardName%=FLMckUSB.Dev, USB\VID_08FF&PID_5500
+%YukonBoardName1%=FLMckUSB.Dev, USB\VID_08FF&PID_5501
+%AES3KBoardName%=FLMckUSB.Dev, USB\VID_08FF&PID_5700
+
+
+[DestinationDirs]
+FLMckUSB.Files.Ext = 10,System32\Drivers
+FLMckUSB.Files.Coinst = 11
+DefaultDestDir = 11
+
+[FLMckUSB.Dev]
+CopyFiles=FLMckUSB.Files.Ext
+AddReg=FLMckUSB.AddReg
+
+[FLMckUSB.Dev.NT]
+CopyFiles=FLMckUSB.Files.Ext
+AddReg=FLMckUSB.AddReg
+
+[FLMckUSB.Dev.NT.CoInstallers]
+CopyFiles=FLMckUSB.Files.Coinst
+AddReg=FLMckUSB.Coinst.AddReg
+
+[FLMckUSB.Dev.NT.Services]
+Addservice = FLMCKUSB, 0x00000002, FLMckUSB.AddService, FLMckUSB_EventLog_Install
+
+[FLMckUSB.AddService]
+DisplayName    = %FLMckUSB.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\FLMckUSB.sys
+LoadOrderGroup = Base
+
+[FLMckUSB.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,FLMckUSB.sys
+
+[FLMckUSB.Coinst.AddReg]
+HKR,,CoInstallers32,0x00010000,"ATInsMsg.dll"
+
+[FLMckUSB_EventLog_Install]
+AddReg = FLMckUSB_EventLog_AddReg
+
+[FLMckUSB_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\FLMckUSB.sys"
+HKR,,TypesSupported,0x00010001,7
+
+
+[FLMckUSB.Files.Ext]
+FLMckUSB.sys
+
+[FLMckUSB.Files.Coinst]
+ATInsMsg.dll
+
+[SourceDisksNames]
+1 = %Disk1Name%,,,""
+
+[SourceDisksFiles]
+FLMckUSB.sys=1
+ATInsMsg.dll=1
+
+
+;---------------------------------------------------------------;
+
+[Strings]
+Authentec="AuthenTec, Inc."
+YukonBoardName="AuthenTec Fingerprint Sensor Module (AES 4K)"
+YukonBoardName1="AuthenTec Fingerprint Sensor Module (AES 4K+)"
+AES3KBoardName="AuthenTec Fingerprint Sensor Module (AES 3K)"
+FLMckUSB.SvcDesc="AuthenTec Fingerprint USB Driver (AES 3K, 4K)"
+Disk1Name="AuthenTec Fingerprint SDK CD-ROM"
+

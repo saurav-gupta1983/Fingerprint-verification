@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" ?> 
+  <!-- control file for DPInst.exe -->
+  <dpinst>
+    <!-- use dermalog icon in Add/Remove Software dialog -->
+    <icon>Dermalog.ico</icon>
+    <!-- allow unsigned drivers -->
+    <legacyMode/>
+    <!-- search all subdirectories for drivers -->
+    <search>
+      <subDirectory>*</subDirectory>
+    </search>
+    <watermarkPath>WatermarkBitmap.bmp</watermarkPath>    
+  </dpinst>

@@ -1,0 +1,73 @@
+[Version]
+Signature="$CHICAGO$"
+Class=USB
+provider=%Authentec%
+LayoutFile=layout.inf
+DriverVer=04/30/2001
+
+[Manufacturer]
+%Authentec%=Authentec
+
+[Authentec]
+;
+; These are the VID/PIDs for the Yukon Fingerloc boards.
+;
+%YukonBoardName%=FLMckUSB.Dev, USB\VID_08FF&PID_5500
+%YukonBoardName%=FLMckUSB.Dev, USB\VID_08FF&PID_5501
+
+
+[PreCopySection]
+HKR,,NoSetupUI,,1
+
+[DestinationDirs]
+FLMckUSB.Files.Ext = 10,System32\Drivers
+
+[FLMckUSB.Dev]
+CopyFiles=FLMckUSB.Files.Ext
+AddReg=FLMckUSB.AddReg
+
+[FLMckUSB.Dev.NT]
+CopyFiles=FLMckUSB.Files.Ext
+AddReg=FLMckUSB.AddReg
+
+[FLMckUSB.Dev.NT.Services]
+Addservice = FLMCKUSB, 0x00000002, FLMckUSB.AddService, FLMckUSB_EventLog_Install
+
+[FLMckUSB.AddService]
+DisplayName    = %FLMckUSB.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\FLMckUSB.sys
+LoadOrderGroup = Base
+
+[FLMckUSB.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,FLMckUSB.sys
+
+[FLMckUSB_EventLog_Install]
+AddReg = FLMckUSB_EventLog_AddReg
+
+[FLMckUSB_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\FLMckUSB.sys"
+HKR,,TypesSupported,0x00010001,7
+
+
+[FLMckUSB.Files.Ext]
+FLMckUSB.sys
+
+[SourceDisksNames]
+1 = %Disk1Name%,,,""
+
+[SourceDisksFiles]
+FLMckUSB.sys=1
+
+
+;---------------------------------------------------------------;
+
+[Strings]
+Authentec="AuthenTec, Inc."
+YukonBoardName="TACOMA Fingerprint Pad"
+FLMckUSB.SvcDesc="TACOMA Fingerprint Pad Driver"
+Disk1Name="TACOMA FingerPad CD-ROM"
+

@@ -1,0 +1,2 @@
+Pour installer l'interface TWAIN pour Certis, copier le répertoire "id3" dans:
+C:\WINNT\TWAIN_32.

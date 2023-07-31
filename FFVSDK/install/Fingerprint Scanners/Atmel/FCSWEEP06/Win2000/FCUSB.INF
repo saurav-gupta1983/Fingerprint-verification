@@ -1,0 +1,61 @@
+; Copyright (c) 2002 Philog
+;
+; Installation of the FCUSB driver for the FingerChip
+;
+; FCUSB.inf
+
+[Version]
+Signature="$CHICAGO$"
+Class=Image
+provider=%ProviderName%
+LayoutFile=layout.inf
+
+[Manufacturer]
+%MfgName%=Mfg0
+
+; ================= readers =====================
+
+[Mfg0]
+%USB\VID_03EB&PID_1103_DeviceDesc%=fcusb.Device, USB\VID_03EB&PID_1103
+
+[DestinationDirs]
+fcusb.Files.Ext = 10,System32\Drivers
+
+[fcusb.Files.Ext]
+FCUSB.sys
+
+;==============Windows 98 installation===========
+;[PreCopySection]
+;HKR,,NoSetupUI,,1
+
+[fcusb.Device]
+CopyFiles=fcusb.Files.Ext
+AddReg=fcusb.AddReg
+
+[fcusb.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,FCUSB.sys
+
+;==============Windows 2000 installation========
+[fcusb.Device.NT]
+CopyFiles=fcusb.Files.Ext
+
+[fcusb.Device.NT.Services]
+AddService = fcusb, 0x00000002, fcusb.Device.AddService
+
+[fcusb.Device.AddService]
+DisplayName	= %fcusb.Service.Name%
+Description	= %fcusb.Service.Desc%
+ServiceType	= 1			;%SERVICE_KERNEL_DRIVER%
+StartType	= 3			;%SERVICE_DEMAND_START%
+ErrorControl	= 1			;%SERVICE_ERROR_NORMAL%	
+ServiceBinary	= %12%\FCUSB.sys
+
+;---------------------------------------------------------------;
+
+[Strings]
+ProviderName="PHILOG"
+MfgName="ATMEL"
+USB\VID_03EB&PID_1103_DeviceDesc="FingerChip USB"
+fcusb.Service.Name="FingerChip driver"
+fcusb.Service.Desc="Isochronous USB driver for FingerChip"

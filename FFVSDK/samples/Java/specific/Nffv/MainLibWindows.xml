@@ -1,0 +1,5 @@
+<mainlib>
+	<lib>NffvServer.exe</lib>
+	<lib>Nffv.dll</lib>
+	<lib>NffvJavaNative.dll</lib>
+</mainlib>

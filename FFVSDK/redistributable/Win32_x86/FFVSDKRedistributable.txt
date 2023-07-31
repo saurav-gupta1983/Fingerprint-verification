@@ -1,0 +1,49 @@
+File FFVSDKRedistributable.exe contains components needed for Free Fingerprint Verification SDK to function
+
+Following parameters can be specified:
+  /DOTNET - copies .NET components for product and installs .NET framework if not available.
+  /GAC - installs .NET components to Global Assembly Cache.
+
+Following are parameters to specify wich scanner modules need to be installed:
+  /AtmelFC - Atmel FingerChip sensor module.
+  /AuthenTec - AuthenTec AES4000, AF-S2 sensor module.
+  /AuthenTecAES2501B - AuthenTec AES2501B module.
+  /Biometrika - Biometrika FX2000. FX3000 and HiScan scanners module.
+  /CrossMatch - CrossMatch V300/V300LC/LC2.0 scanner module.
+  /Testech - Testech Bio-i scanner module.
+  /GreenBit - Green Bit DactyScan 26 scanner module.
+  /Digent - Digent Izzix FD1000 scanner module.
+  /Startek - Startek FM200 scanner module.
+  /Fujitsu - Fujitsu MBF200 scanner module
+  /Futronic - Futronic FS80/FS88 scanner module.
+  /Identix - Identix DFR 2080, DFR 2090, DFR 2100 scanners module.
+  /LightTuning - LightTuning LTT-C500 scanner module.
+  /UPEK - UPEK TouchChip TCRU1C and TCRU2C sensors module.
+  /Tacoma - Tacoma CMOS scanner module.
+  /UareU - Digital Persona U.are.U 2000/4000S/4000B scanners module.
+  /SecuGen - SecuGen Hamster III/Plus/IV scanner modules.
+  /NITGEN - NITGEN Fingkey Hamster & Fingkey HAMSTER II scanner module.
+  /TSTBiometrics - TST Biometrics BiRD 3 scanner module.
+  /Ethentica - Ethentica scanner module.
+  /Certis - id3 Certis scanner module.
+  /Cyte - Cyte scanner module.
+  /DactyScan - DactyScan scanner module.
+  /FM200 - FM200 scanner module.
+  /FutronicEthernetFAN - FutronicEthernetFAN scanner module.
+  /Lumidigm - Lumidigm scanner module.
+  /ZKSensor6000 - ZK Sensor 6000 scanner module.
+
+
+Installer adds install directory to path variable.
+Default install directory is: 
+  $PROGRAMFILES\Neurotechnology\FFV SDK\bin\
+It can be changed with parameter:
+  /D=path
+
+
+Example:
+  FFVSDKRedistributable.exe /DOTNET /Startek /D=c:\program files\MyProduct\Bin
+
+Note:
+  If you want redistributables uninstaller to run in silent mode use parameter /S
+  For example: uninst.exe /S

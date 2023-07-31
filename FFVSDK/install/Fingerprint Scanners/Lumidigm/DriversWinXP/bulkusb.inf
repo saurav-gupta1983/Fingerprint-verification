@@ -1,0 +1,93 @@
+;///////////////////////////////////////////////////////////////////////////////
+;//
+;//		Copyright (c) 2003 - Analog Devices Inc. - All rights reserved.
+;//
+;//		File:			bulkldi.inf
+;//		Description: Device installation file for the Blackfin USB-LAN
+;//                          EZ-EXTENDER USB connection
+;//
+;///////////////////////////////////////////////////////////////////////////////
+
+;///////////////////////////////////////////////////////////////////////////////
+;// Version Section 
+
+[Version]
+Signature="$CHICAGO$"
+Provider=%ProviderName%
+Class="LUMIDIGM VENUS Devices"
+ClassGUID={06B62F68-E35E-4f57-8BE2-A5BC6CCCC708}
+DriverVer=11/17/2006,01.00.00.00
+
+;///////////////////////////////////////////////////////////////////////////////
+;// ClassInstall/ClassInstall32 Section
+
+; Windows-95/98 installation
+[ClassInstall]
+Addreg=Class_AddReg
+
+; Windows-NT/2000 installation
+[ClassInstall32]
+Addreg=Class_AddReg
+
+[Class_AddReg]
+HKR,,,,%DeviceClassName%
+HKR,,Icon,,"-5"
+
+;///////////////////////////////////////////////////////////////////////////////
+;// DestinationDirs Section 
+
+[DestinationDirs]
+DefaultDestDir = 10,System32\Drivers
+
+;///////////////////////////////////////////////////////////////////////////////
+;// Manufacturer and Models Sections 
+
+[Manufacturer]
+%MfgName%=Lumidigm
+
+[Lumidigm]
+%DeviceDesc3424%=DriverInstall, USB\VID_0525&PID_3424
+
+;///////////////////////////////////////////////////////////////////////////////
+;// Windows 95/98 Installation 
+
+[DriverInstall]
+CopyFiles=DriverInstall_Files
+AddReg=DriverInstall.AddReg
+
+[DriverInstall.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,bulkldi.sys
+
+;///////////////////////////////////////////////////////////////////////////////
+;// Windows NT/2000 Installation 
+
+[DriverInstall.NT]
+CopyFiles=DriverInstall_Files
+
+[DriverInstall.NT.Services]
+Addservice = bulkldi, 0x00000002, DriverInstall_AddService
+
+[DriverInstall_AddService]
+DisplayName    = %SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\bulkldi.sys
+LoadOrderGroup = Base
+
+;///////////////////////////////////////////////////////////////////////////////
+;// Files (common) - Note, filenames must be 8.3 format for Win9x
+
+[DriverInstall_Files]
+bulkldi.sys
+
+;///////////////////////////////////////////////////////////////////////////////
+;// Strings Section 
+
+[Strings]
+ProviderName="Lumidigm, Inc."
+MfgName="Lumidigm, Inc."
+DeviceDesc3424="Venus V100 MultiSpectral Biometric"
+DeviceClassName="LDI Biometric Sensor"
+SvcDesc="Lumidigm Venus USB"

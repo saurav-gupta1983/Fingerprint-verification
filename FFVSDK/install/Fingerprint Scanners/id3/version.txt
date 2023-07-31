@@ -1,0 +1,49 @@
+id3 Semiconductors - Certis Fingerprint Reader Drivers
+
+These drivers are suitable for Certis fingerprint reader 
+
+*--------------------------------------------------------------------------------------------------*
+* Files
+*--------------------------------------------------------------------------------------------------*
+Firmware :
+    biokloader.inf
+    bioload.sys V 1.0.8.0
+Driver :
+    bioki.inf
+    usbbiok.sys V 4.0.1.0
+    
+*--------------------------------------------------------------------------------------------------*
+* Revision History
+*--------------------------------------------------------------------------------------------------*
+
+V 3.3.0.0:
+	Modifications and/or improvements:
+        - Improve image reconstruction (displacement limited to 8 pixels : avoids gray lines under 
+            certain speed conditions)
+
+V 3.2.0.0:
+	Modifications and/or improvements:
+	- Bug correction : 
+        - Add compatibility with Windows 2000 SP3
+
+V 3.0.0.0:
+    Modifications and/or improvements:
+        - Improved Sensor heat management (on driver loading the sensor is heated, then a PWM is 
+            applied to keep the sensor at an optimal temperature)
+        - Improved version of the Fingerprint reconstruction algorithm. Decrease image distortion 
+            to reach less than 2%.
+        - Allows severals Certis devices to be used simultaneously one the same PC. 
+        - Measurement of the usb error rate (isochronous transfert) added
+        - Allows up to 2 or 3 % of lost data in usb frames (isochronous transfert), without any 
+            visual effects on the image
+        - Automatic re-synchronization when usb frames are lost
+        - Bug correction :
+            - Fix problem that occured when the system went to sleep mode or waked up.
+
+V 2.0.0.0:
+    Modifications and/or improvements:
+        - Bug correction :
+            - Fix problems that occured when the system went to sleep mode or waked up.
+
+V 1.0.0.0:
+	Initial revision
